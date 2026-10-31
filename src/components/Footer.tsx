@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { FaFacebookF, FaInstagram, FaYoutube } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
-import { FaVideo } from "react-icons/fa";
+import { Aperture } from "lucide-react";
 import { MdEmail, MdPhone, MdLocationOn } from "react-icons/md";
 
 const quickLinks = [
@@ -27,7 +27,7 @@ export default function Footer() {
           {/* Logo & Mission */}
           <div className="space-y-4">
             <Link href="/" className="flex items-center gap-2 text-xl font-bold">
-              <FaVideo className="text-indigo-400 text-2xl" />
+              <Aperture className="text-indigo-400 size-6" />
               <span>StudioSpace</span>
             </Link>
             <p className="text-sm opacity-80 leading-relaxed">

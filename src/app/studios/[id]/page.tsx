@@ -108,10 +108,8 @@ export default function StudioDetailsPage({
       return;
     }
     try {
-      const res = await fetch(`${API_URL}/api/wishlist`, {
+      const res = await authFetch(`${API_URL}/api/wishlist`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        credentials: "include",
         body: JSON.stringify({ studioId: id }),
       });
       const data = await res.json();

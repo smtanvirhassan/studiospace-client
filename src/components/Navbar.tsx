@@ -3,7 +3,8 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
-import { FaVideo, FaMoon, FaSun } from "react-icons/fa";
+import { FaMoon, FaSun } from "react-icons/fa";
+import { Aperture } from "lucide-react";
 import { HiMenuAlt3 } from "react-icons/hi";
 import { IoClose } from "react-icons/io5";
 import toast from "react-hot-toast";
@@ -47,7 +48,7 @@ export default function Navbar() {
         {/* Left: Logo */}
         <div className="navbar-start">
           <Link href="/" className="flex items-center gap-2 text-xl font-bold">
-            <FaVideo className="text-indigo-500 text-2xl" />
+            <Aperture className="text-indigo-500 size-7" />
             <span>StudioSpace</span>
           </Link>
         </div>
