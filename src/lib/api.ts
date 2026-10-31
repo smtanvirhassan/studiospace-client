@@ -1,11 +1,10 @@
+import { getTokenFromClient } from "./getTokenFromClient";
+
 export const API_URL =
   process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
 
 export async function authFetch(url: string, options: RequestInit = {}) {
-  const token =
-    typeof window !== "undefined"
-      ? localStorage.getItem("studiospace_token")
-      : null;
+  const token = await getTokenFromClient();
 
   const headers: Record<string, string> = {
     "Content-Type": "application/json",

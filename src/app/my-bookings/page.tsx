@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useAuth } from "@/providers/AuthProvider";
 import PrivateRoute from "@/components/PrivateRoute";
 import LoadingSpinner from "@/components/LoadingSpinner";
+import { API_URL, authFetch } from "@/lib/api";
 import toast from "react-hot-toast";
 import Swal from "sweetalert2";
 import {
@@ -14,8 +15,6 @@ import {
   FaTimesCircle,
   FaFilePdf,
 } from "react-icons/fa";
-
-const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
 
 interface Booking {
   _id: string;
@@ -61,9 +60,8 @@ function MyBookingsContent() {
 
   const fetchBookings = async () => {
     try {
-      const res = await fetch(
-        `${API_URL}/api/bookings?email=${encodeURIComponent(user?.email || "")}`,
-        { credentials: "include" }
+      const res = await authFetch(
+        `${API_URL}/api/bookings?email=${encodeURIComponent(user?.email || "")}`
       );
       const data = await res.json();
       setBookings(Array.isArray(data) ? data : []);
@@ -88,10 +86,8 @@ function MyBookingsContent() {
 
     if (result.isConfirmed) {
       try {
-        const res = await fetch(`${API_URL}/api/bookings/${id}`, {
+        const res = await authFetch(`${API_URL}/api/bookings/${id}`, {
           method: "PATCH",
-          headers: { "Content-Type": "application/json" },
-          credentials: "include",
           body: JSON.stringify({ status: "Cancelled" }),
         });
         if (res.ok) {

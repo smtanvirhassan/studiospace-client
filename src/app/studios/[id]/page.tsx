@@ -21,9 +21,8 @@ import {
 } from "react-icons/fa";
 import { useAuth } from "@/providers/AuthProvider";
 import LoadingSpinner from "@/components/LoadingSpinner";
+import { API_URL, authFetch } from "@/lib/api";
 import toast from "react-hot-toast";
-
-const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
 
 interface Review {
   id?: string;
@@ -162,10 +161,8 @@ export default function StudioDetailsPage({
         hostEmail: studio!.ownerEmail,
       };
 
-      const res = await fetch(`${API_URL}/api/bookings`, {
+      const res = await authFetch(`${API_URL}/api/bookings`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        credentials: "include",
         body: JSON.stringify(bookingData),
       });
 
