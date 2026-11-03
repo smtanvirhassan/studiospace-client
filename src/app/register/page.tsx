@@ -58,11 +58,11 @@ export default function RegisterPage() {
 
   const handleGoogleLogin = async () => {
     try {
-      await googleLogin();
-      toast.success("Login successful!");
-      router.push("/");
+      setLoading(true);
+      await googleLogin("/");
     } catch (error: any) {
       toast.error(error?.message || "Google login failed");
+      setLoading(false);
     }
   };
 

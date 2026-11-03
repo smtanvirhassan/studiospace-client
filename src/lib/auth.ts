@@ -11,6 +11,12 @@ const client = new MongoClient(mongoUri);
 const db = client.db(dbName);
 
 export const auth = betterAuth({
+  baseURL: process.env.BETTER_AUTH_URL || "http://localhost:3000",
+  trustedOrigins: [
+    "http://localhost:3000",
+    "http://127.0.0.1:3000",
+    "https://studio-space-client.vercel.app",
+  ],
   database: mongodbAdapter(db, {
     client,
   }),

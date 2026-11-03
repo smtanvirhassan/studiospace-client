@@ -116,7 +116,7 @@ export default function HomePage() {
       name: "Art Workshops",
       icon: <FaPaintBrush className="text-4xl text-indigo-500" />,
       description: "Creative workshop spaces for art, crafts, and design",
-      query: "Workshop",
+      query: "Art Workshop",
     },
   ];
 
@@ -251,6 +251,10 @@ export default function HomePage() {
                       src={studio.imageUrl}
                       alt={studio.title}
                       className="w-full h-56 object-cover"
+                      onError={(e) => {
+                        e.currentTarget.src =
+                          "https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?w=1000&auto=format&fit=crop&q=80";
+                      }}
                     />
                     <span className="absolute top-3 right-3 bg-indigo-500 text-white px-3 py-1 rounded-full text-sm">
                       {studio.category}

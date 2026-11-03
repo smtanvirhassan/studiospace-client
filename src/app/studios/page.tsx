@@ -32,8 +32,20 @@ const categories = [
   "Film Stage",
   "Podcast Lounge",
   "Music Suite",
-  "Workshop",
+  "Art Workshop",
 ];
+
+const normalizeCategory = (cat: string | null): string => {
+  if (!cat) return "all";
+  const lower = cat.toLowerCase().trim();
+  if (lower === "all") return "all";
+  if (lower.includes("photo")) return "Photo Studio";
+  if (lower.includes("film") || lower.includes("sound")) return "Film Stage";
+  if (lower.includes("podcast")) return "Podcast Lounge";
+  if (lower.includes("music")) return "Music Suite";
+  if (lower.includes("art") || lower.includes("workshop")) return "Art Workshop";
+  return cat;
+};
 
 function StudiosContent() {
   const searchParams = useSearchParams();
@@ -48,10 +60,20 @@ function StudiosContent() {
 
   useEffect(() => {
     const cat = searchParams.get("category");
-    if (cat) {
-      setSelectedCategory(cat);
-    }
+    setSelectedCategory(normalizeCategory(cat));
   }, [searchParams]);
+
+  const handleCategoryChange = (val: string) => {
+    setSelectedCategory(val);
+    const params = new URLSearchParams(searchParams.toString());
+    if (val === "all") {
+      params.delete("category");
+    } else {
+      params.set("category", val);
+    }
+    const queryStr = params.toString();
+    router.push(queryStr ? `/studios?${queryStr}` : "/studios");
+  };
 
   useEffect(() => {
     fetchStudios();
@@ -160,7 +182,7 @@ function StudiosContent() {
             <select
               className="select select-bordered"
               value={selectedCategory}
-              onChange={(e) => setSelectedCategory(e.target.value)}
+              onChange={(e) => handleCategoryChange(e.target.value)}
             >
               {categories.map((cat) => (
                 <option key={cat} value={cat}>
@@ -216,6 +238,10 @@ function StudiosContent() {
                   src={studio.imageUrl}
                   alt={studio.title}
                   className="w-full h-full object-cover"
+                  onError={(e) => {
+                    e.currentTarget.src =
+                      "https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?w=1000&auto=format&fit=crop&q=80";
+                  }}
                 />
                 <span className="absolute top-3 right-3 bg-indigo-600 text-white px-3 py-1 rounded-full text-xs font-semibold shadow">
                   {studio.category}

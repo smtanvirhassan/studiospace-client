@@ -13,7 +13,7 @@ const categories = [
   "Film Stage",
   "Podcast Lounge",
   "Music Suite",
-  "Workshop",
+  "Art Workshop",
 ];
 
 const amenityOptions = [

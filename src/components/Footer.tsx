@@ -15,7 +15,7 @@ const categories = [
   { label: "Sound Stages", href: "/studios?category=Film%20Stage" },
   { label: "Podcast Rooms", href: "/studios?category=Podcast%20Lounge" },
   { label: "Music Suites", href: "/studios?category=Music%20Suite" },
-  { label: "Art Workshops", href: "/studios?category=Workshop" },
+  { label: "Art Workshops", href: "/studios?category=Art%20Workshop" },
 ];
 
 export default function Footer() {
@@ -114,15 +114,19 @@ export default function Footer() {
             <ul className="space-y-3">
               <li className="flex items-center gap-2 text-sm opacity-80">
                 <MdEmail className="text-indigo-400" />
-                <span>hello@studiospace.com</span>
+                <a href="mailto:smtanvirhassan52@gmail.com" className="hover:underline hover:text-white transition-colors">
+                  smtanvirhassan52@gmail.com
+                </a>
               </li>
               <li className="flex items-center gap-2 text-sm opacity-80">
                 <MdPhone className="text-indigo-400" />
-                <span>+1 (555) 123-4567</span>
+                <a href="tel:01572904339" className="hover:underline hover:text-white transition-colors">
+                  +880 1572-904339
+                </a>
               </li>
               <li className="flex items-start gap-2 text-sm opacity-80">
                 <MdLocationOn className="text-indigo-400 mt-0.5" />
-                <span>123 Creative Blvd, Suite 100, Los Angeles, CA 90001</span>
+                <span>Kuril, Dhaka, Bangladesh</span>
               </li>
             </ul>
           </div>

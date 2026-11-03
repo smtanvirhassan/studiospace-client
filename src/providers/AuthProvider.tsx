@@ -30,7 +30,7 @@ interface AuthContextType {
     photoURL?: string
   ) => Promise<any>;
   loginUser: (email: string, password: string) => Promise<any>;
-  googleLogin: () => Promise<any>;
+  googleLogin: (callbackURL?: string) => Promise<any>;
   logOut: () => Promise<void>;
   updateUserProfile: (name: string, photo: string) => Promise<void>;
 }
@@ -185,34 +185,17 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     }
   };
 
-  const googleLogin = async (): Promise<any> => {
+  const googleLogin = async (callbackURL: string = "/"): Promise<any> => {
     setLoading(true);
     try {
-      await authClient.signIn.social({
+      const res = await authClient.signIn.social({
         provider: "google",
-        callbackURL: "/",
+        callbackURL: callbackURL || "/",
       });
-    } catch {
-      const googleMock: UserType = {
-        uid: "google_" + Date.now(),
-        id: "google_" + Date.now(),
-        email: "google.creator@gmail.com",
-        name: "Google Creator",
-        displayName: "Google Creator",
-        photoURL:
-          "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400",
-        image:
-          "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400",
-      };
-      setLocalUser(googleMock);
-      if (typeof window !== "undefined") {
-        localStorage.setItem(
-          "studiospace_auth_user",
-          JSON.stringify(googleMock)
-        );
-        localStorage.setItem("studiospace_token", "test-examiner-token");
-      }
-      return { user: googleMock };
+      return res;
+    } catch (err: any) {
+      console.error("Google sign in error:", err);
+      throw err;
     } finally {
       setLoading(false);
     }
