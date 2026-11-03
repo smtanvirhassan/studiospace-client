@@ -15,8 +15,11 @@ export const auth = betterAuth({
   trustedOrigins: [
     "http://localhost:3000",
     "http://127.0.0.1:3000",
+    process.env.BETTER_AUTH_URL,
+    process.env.NEXT_PUBLIC_BETTER_AUTH_URL,
+    "https://studiospace-client.vercel.app",
     "https://studio-space-client.vercel.app",
-  ],
+  ].filter(Boolean) as string[],
   database: mongodbAdapter(db, {
     client,
   }),
